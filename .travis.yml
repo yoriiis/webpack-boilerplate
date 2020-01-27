@@ -26,6 +26,7 @@ script:
   - npm run test:stylelint
   - npm run test:eslint
   - npm run test
+  - npm run build
 
 jobs:
   include:
@@ -36,3 +37,4 @@ jobs:
         - npm run test:stylelint
         - npm run test:eslint
         - npm run test
+        - npm run build

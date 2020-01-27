@@ -51,6 +51,19 @@ module.exports = (env, argv) => {
 							}
 						}
 					]
+				},
+				{
+					test: /\.(jpe?g|png|gif|svg|ico)$/i,
+					include: path.resolve(__dirname, './src/'),
+					exclude: /(node_modules)/,
+					use: [
+						{
+							loader: 'file-loader',
+							options: {
+								name: 'images/[name].[ext]'
+							}
+						}
+					]
 				}
 			]
 		},
