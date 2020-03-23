@@ -7,15 +7,94 @@
 	"repository": "https://github.com/yoriiis/webpack-boilerplate.git",
 	"license": "MIT",
 	"author": "Yoriiis aka Joris DANIEL",
+	"files": [
+		"web"
+	],
 	"scripts": {
 		"build": "rm -rf ./web/dist/ && webpack --mode=production",
 		"start": "rm -rf ./web/dist/ && webpack --mode=development",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
-		"test:eslint": "eslint -c ./.eslintrc.js .",
+		"test:eslint": "eslint . --ignore-pattern dist",
 		"test:markdown": "markdownlint '**/*.md' --ignore node_modules",
-		"test:stylelint": "stylelint './src/**/*.css' --config ./stylelint.config.js",
+		"test:stylelint": "stylelint './src/**/*.css'",
 		"test:watch": "jest --watch --coverage"
+	},
+	"babel": {
+		"plugins": [
+			"babel-plugin-dynamic-import-node"
+		],
+		"presets": [
+			[
+				"@babel/preset-env"
+			]
+		]
+	},
+	"browserslist": [
+		"last 2 version"
+	],
+	"prettier": {
+		"printWidth": 100
+	},
+	"eslintConfig": {
+		"env": {
+			"browser": true,
+			"es6": true,
+			"jest": true,
+			"node": true
+		},
+		"parser": "babel-eslint",
+		"parserOptions": {
+			"ecmaFeatures": {
+				"impliedStrict": true,
+				"experimentalObjectRestSpread": true
+			},
+			"ecmaVersion": 6,
+			"sourceType": "module"
+		},
+		"extends": "standard",
+		"rules": {
+			"indent": [
+				"error",
+				"tab",
+				{
+					"ignoredNodes": [
+						"TemplateLiteral > *"
+					]
+				}
+			],
+			"no-console": 0,
+			"no-tabs": 0
+		},
+		"globals": {
+			"document": false,
+			"window": false
+		}
+	},
+	"stylelint": {
+		"extends": "stylelint-config-standard",
+		"rules": {
+			"indentation": 4,
+			"unit-whitelist": [
+				"em",
+				"rem",
+				"%",
+				"px",
+				"s",
+				"deg",
+				"fr",
+				"vh",
+				"ms"
+			]
+		}
+	},
+	"jest": {
+		"moduleFileExtensions": [
+			"js",
+			"css"
+		],
+		"resetModules": true,
+		"verbose": true
 	},
 	"dependencies": {},
 	"devDependencies": {
