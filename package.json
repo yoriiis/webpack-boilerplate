@@ -18,7 +18,7 @@
 		"test:eslint": "eslint . --ignore-pattern dist",
 		"test:markdown": "markdownlint '**/*.md' --ignore node_modules",
 		"test:stylelint": "stylelint './src/**/*.css'",
-		"test:watch": "jest --watch --coverage"
+		"test:watch": "jest --watchAll --coverage"
 	},
 	"babel": {
 		"plugins": [
