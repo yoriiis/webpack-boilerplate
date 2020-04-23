@@ -1,6 +1,6 @@
 # Webpack Boilerplate
 
-[![TravisCI](https://img.shields.io/travis/com/yoriiis/webpack-boilerplate/master?style=for-the-badge)](https://travis-ci.com/yoriiis/webpack-boilerplate)
+[![webpackBoilerplate](https://img.shields.io/travis/com/yoriiis/webpack-boilerplate/master?style=for-the-badge)](https://travis-ci.com/yoriiis/webpack-boilerplate) ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/yoriiis/webpack-boilerplate/Build/master?style=for-the-badge)
 
 This is what I use for [my own project](https://www.npmjs.com/~yoriiis).
 

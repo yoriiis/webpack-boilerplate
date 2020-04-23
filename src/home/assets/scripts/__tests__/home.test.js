@@ -12,8 +12,8 @@ beforeEach(() => {
 	home = getInstance()
 })
 
-describe('home tests', () => {
-	it('should init the home class', () => {
+describe('Home init', () => {
+	it('should call the init function', () => {
 		home.init = jest.fn()
 
 		home.init()
