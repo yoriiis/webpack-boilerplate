@@ -7,6 +7,10 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = (env, argv) => {
 	const isProduction = argv.mode === 'production'
+	const splitChunksProd = {
+		chunks: 'all',
+		name: false
+	}
 
 	return {
 		watch: !isProduction,
@@ -26,7 +30,7 @@ module.exports = (env, argv) => {
 		module: {
 			rules: [
 				{
-					test: /\.js$/,
+					test: /\.(js|ts)$/,
 					include: path.resolve(__dirname, './src'),
 					use: [
 						{
@@ -72,6 +76,7 @@ module.exports = (env, argv) => {
 			]
 		},
 		resolve: {
+			extensions: ['.ts', '.js', '.css'],
 			alias: {
 				shared: path.resolve(__dirname, './src/shared')
 			}
@@ -120,7 +125,7 @@ module.exports = (env, argv) => {
 			mergeDuplicateChunks: true,
 			occurrenceOrder: true,
 			providedExports: false,
-			splitChunks: false
+			splitChunks: isProduction ? splitChunksProd : false
 		}
 	}
 }
