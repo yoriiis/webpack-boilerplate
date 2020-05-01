@@ -11,6 +11,12 @@ This is what I use for [my own project](https://www.npmjs.com/~yoriiis).
 
 Alternatively, download the project to start your own.
 
+The project includes following features:
+
+- Webpack (postCSS, Babel, Typescript)
+- Jest
+- Linter (StyleLint, ESLint, MarkdownLint)
+
 ## License
 
 `webpackBoilerplate` is licensed under the [MIT License](http://opensource.org/licenses/MIT).
