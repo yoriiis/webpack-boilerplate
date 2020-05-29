@@ -104,7 +104,6 @@
 		"modulePaths": [
 			"./front"
 		],
-		"preset": "ts-jest/presets/js-with-babel",
 		"resetModules": true,
 		"verbose": true
 	},
