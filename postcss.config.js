@@ -1,36 +1,31 @@
 const path = require('path')
+const crypto = require('crypto')
+const md5 = (string) => crypto.createHash('md5').update(string).digest('hex')
 
-module.exports = {
-	plugins: [
-		require('postcss-import')({
-			resolve (id) {
-				let aliasFound = false
-				const listAlias = [
-					{
-						alias: '@commonVars',
-						path: './src/shared/assets/styles/vars.css'
+module.exports = (api) => {
+	const isProduction = api.mode === 'production'
+
+	return {
+		plugins: [
+			require('postcss-import')(),
+			require('postcss-url')(),
+			require('postcss-custom-properties-transformer')({
+				transformer: ({ property }) => (isProduction ? md5(property).slice(0, 4) : property)
+			}),
+			require('postcss-preset-env')({
+				stage: 2,
+				features: {
+					'custom-properties': {
+						warnings: true,
+						preserve: true
 					}
-				]
-
-				listAlias.forEach(item => {
-					if (id.match(new RegExp(item.alias, 'g'))) {
-						aliasFound = path.resolve(__dirname, item.path, id.slice(16))
-					}
-				})
-
-				return aliasFound || id
-			}
-		}),
-		require('postcss-preset-env')({
-			stage: 2,
-			features: {
-				'custom-properties': {
-					warnings: true,
-					preserve: false
 				}
-			}
-		}),
-		require('postcss-nested')(),
-		require('postcss-custom-media')()
-	]
+			}),
+			require('postcss-nested')(),
+			require('postcss-custom-media')({
+				importFrom: [path.resolve(__dirname, './src/shared/assets/styles/vars.css')],
+				preserve: false
+			})
+		]
+	}
 }

@@ -13,7 +13,7 @@ Alternatively, download the project to start your own.
 
 The project includes following features:
 
-- Webpack (postCSS, Babel, Typescript)
+- Webpack (postCSS, Babel)
 - Jest
 - Linter (StyleLint, ESLint, MarkdownLint)
 

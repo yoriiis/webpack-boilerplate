@@ -1,1 +1,3 @@
-@import "@commonVars";
+body {
+	overflow: inherit;
+}

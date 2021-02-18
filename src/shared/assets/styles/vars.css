@@ -1,5 +1,5 @@
 :root {
-    --containerMaxWidth: 1000px;
+	--containerMaxWidth: 1000px;
 }
 
 @custom-media --media-mobile only screen and (max-width: 749px);

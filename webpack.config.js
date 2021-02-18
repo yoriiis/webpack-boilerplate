@@ -3,34 +3,38 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const ChunksWebpackPlugin = require('chunks-webpack-plugin')
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
+const SvgChunkWebpackPlugin = require('svg-chunk-webpack-plugin')
 
 module.exports = (env, argv) => {
 	const isProduction = argv.mode === 'production'
-	const splitChunksProd = {
+	const suffixHash = isProduction ? '.[contenthash]' : ''
+	const splitChunks = {
 		chunks: 'all',
-		name: false
+		minSize: 0
 	}
 
 	return {
-		watch: !isProduction,
 		entry: {
 			home: './src/home/config.js'
 		},
+		watch: !isProduction,
 		watchOptions: {
 			ignored: /node_modules/
 		},
-		devtool: !isProduction ? 'source-map' : 'none',
+		devtool: isProduction ? false : 'nosources-source-map',
 		output: {
 			path: path.resolve(__dirname, './web/dist'),
-			publicPath: '/dist/',
-			filename: '[name].js',
-			sourceMapFilename: '[file].map'
+			publicPath: 'dist/',
+			filename: `scripts/[name]${suffixHash}.js`,
+			chunkFilename: `scripts/[name]${suffixHash}.js`
 		},
 		module: {
 			rules: [
 				{
-					test: /\.(js|ts)$/,
+					test: /\.js$/,
 					include: path.resolve(__dirname, './src'),
 					use: [
 						{
@@ -49,29 +53,28 @@ module.exports = (env, argv) => {
 						{
 							loader: 'postcss-loader',
 							options: {
-								config: {
-									path: path.resolve(__dirname, './')
+								postcssOptions: {
+									config: path.resolve(__dirname, 'postcss.config.js')
 								}
 							}
 						}
 					]
 				},
 				{
-					test: /\.(jpe?g|png|gif|svg|ico)$/i,
+					test: /\.(jpe?g|png|gif)$/i,
 					include: path.resolve(__dirname, './src/'),
-					exclude: /(node_modules)/,
-					use: [
-						{
-							loader: 'file-loader',
-							options: {
-								name: 'images/[name].[ext]'
-							}
-						}
-					]
+					type: 'asset/resource',
+					generator: {
+						filename: `images/[name]${suffixHash}[ext]`
+					}
 				},
 				{
 					test: /\.svg$/,
-					loader: 'svg-inline-loader'
+					use: [
+						{
+							loader: SvgChunkWebpackPlugin.loader
+						}
+					]
 				}
 			]
 		},
@@ -83,11 +86,18 @@ module.exports = (env, argv) => {
 		},
 		plugins: [
 			new ProgressBarPlugin(),
+			new WebpackManifestPlugin(),
 			new MiniCssExtractPlugin({
-				filename: '[name].css',
-				chunkFilename: '[name].css'
+				filename: `styles/[name]${suffixHash}.css`,
+				chunkFilename: `styles/[name]${suffixHash}.css`
 			}),
-			new webpack.optimize.ModuleConcatenationPlugin()
+			new webpack.optimize.ModuleConcatenationPlugin(),
+			new ChunksWebpackPlugin({
+				filename: 'templates/[name]-[type].html'
+			}),
+			new SvgChunkWebpackPlugin({
+				filename: `sprites/[name]${suffixHash}.svg`
+			})
 		],
 		stats: {
 			colors: true,
@@ -101,27 +111,16 @@ module.exports = (env, argv) => {
 		optimization: {
 			minimizer: [
 				new TerserPlugin({
-					extractComments: false,
-					cache: true,
-					parallel: true,
-					sourceMap: false,
-					terserOptions: {
-						extractComments: 'all',
-						compress: {
-							drop_console: false
-						},
-						mangle: true
-					}
+					extractComments: false
 				}),
-				new OptimizeCSSAssetsPlugin({})
+				new CssMinimizerPlugin()
 			],
-			namedModules: true,
+			chunkIds: 'deterministic', // or 'named'
 			removeAvailableModules: true,
 			removeEmptyChunks: true,
 			mergeDuplicateChunks: true,
-			occurrenceOrder: true,
 			providedExports: false,
-			splitChunks: isProduction ? splitChunksProd : false
+			splitChunks: isProduction ? splitChunks : false
 		}
 	}
 }

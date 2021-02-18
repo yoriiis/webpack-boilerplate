@@ -4,7 +4,7 @@
  * Home module
  */
 export default class Home {
-	init () {
+	init() {
 		console.log('Home')
 	}
 }
