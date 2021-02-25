@@ -24,7 +24,7 @@ module.exports = (env, argv) => {
 		watchOptions: {
 			ignored: /node_modules/
 		},
-		devtool: isProduction ? false : 'nosources-source-map',
+		devtool: isProduction ? false : 'source-map',
 		output: {
 			path: path.resolve(__dirname, './web/dist'),
 			publicPath: 'dist/',
@@ -86,14 +86,17 @@ module.exports = (env, argv) => {
 		},
 		plugins: [
 			new ProgressBarPlugin(),
-			new WebpackManifestPlugin(),
+			new WebpackManifestPlugin({
+				map: (f) => ({ ...f, name: f.path.replace('dist/', '') })
+			}),
 			new MiniCssExtractPlugin({
 				filename: `styles/[name]${suffixHash}.css`,
 				chunkFilename: `styles/[name]${suffixHash}.css`
 			}),
 			new webpack.optimize.ModuleConcatenationPlugin(),
 			new ChunksWebpackPlugin({
-				filename: 'templates/[name]-[type].html'
+				filename: 'templates/[name]-[type].html',
+				templateScript: '<script defer src="{{chunk}}"></script>'
 			}),
 			new SvgChunkWebpackPlugin({
 				filename: `sprites/[name]${suffixHash}.svg`

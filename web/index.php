@@ -1,4 +1,5 @@
 <?php $ASSETS = json_decode(file_get_contents("./dist/manifest.json"), true); ?>
+<?php //var_dump($ASSETS); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +18,8 @@
         <?php include $ASSETS["templates/home-scripts.html"]; ?>
 	</head>
 	<body>
-		<div id="app">
-            <svg fill="green">
-                <use href="#check"></use>
-            </svg>
-        </div>
+		<div id="app"></div>
+        <img src="<?php echo $ASSETS["images/panda.png"]; ?>" alt="Panda" />
         <?php include $ASSETS["sprites/home.svg"]; ?>
 	</body>
 </html>
