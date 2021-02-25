@@ -86,9 +86,7 @@ module.exports = (env, argv) => {
 		},
 		plugins: [
 			new ProgressBarPlugin(),
-			new WebpackManifestPlugin({
-				map: (f) => ({ ...f, name: f.path.replace('dist/', '') })
-			}),
+			new WebpackManifestPlugin(),
 			new MiniCssExtractPlugin({
 				filename: `styles/[name]${suffixHash}.css`,
 				chunkFilename: `styles/[name]${suffixHash}.css`
