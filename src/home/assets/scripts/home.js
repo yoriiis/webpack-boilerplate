@@ -1,10 +1,17 @@
-'use strict'
+import { createElement, Fragment } from 'jsx-dom'
 
 /**
  * Home module
  */
 export default class Home {
-	init () {
+	init() {
 		console.log('Home')
+		document.querySelector('#app').appendChild(
+			<>
+				<svg fill="green">
+					<use href="#check"></use>
+				</svg>
+			</>
+		)
 	}
 }

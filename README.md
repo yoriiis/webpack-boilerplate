@@ -13,7 +13,9 @@ Alternatively, download the project to start your own.
 
 The project includes following features:
 
-- Webpack (postCSS, Babel, Typescript)
+- Webpack (postCSS, Babel)
+- JSX
+- SVG sprite and chunks optimization
 - Jest
 - Linter (StyleLint, ESLint, MarkdownLint)
 
