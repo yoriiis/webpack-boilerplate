@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const ChunksWebpackPlugin = require('chunks-webpack-plugin')
@@ -85,7 +84,7 @@ module.exports = (env, argv) => {
 			}
 		},
 		plugins: [
-			new ProgressBarPlugin(),
+			new webpack.ProgressPlugin(),
 			new WebpackManifestPlugin(),
 			new MiniCssExtractPlugin({
 				filename: `styles/[name]${suffixHash}.css`,
