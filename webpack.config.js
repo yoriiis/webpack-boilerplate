@@ -97,7 +97,25 @@ module.exports = (env, argv) => {
 				templateScript: '<script defer src="{{chunk}}"></script>'
 			}),
 			new SvgChunkWebpackPlugin({
-				filename: `sprites/[name]${suffixHash}.svg`
+				filename: `sprites/[name]${suffixHash}.svg`,
+				svgstoreConfig: {
+					svgAttrs: {
+						'aria-hidden': true,
+						style: 'position: absolute; width: 0; height: 0; overflow: hidden;'
+					}
+				},
+				svgoConfig: {
+					plugins: [
+						{
+							inlineStyles: {
+								onlyMatchedOnce: false
+							}
+						},
+						{
+							removeViewBox: false
+						}
+					]
+				}
 			})
 		],
 		stats: {
