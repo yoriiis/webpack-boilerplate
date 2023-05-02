@@ -1,5 +1,4 @@
 <?php $ASSETS = json_decode(file_get_contents("./dist/manifest.json"), true); ?>
-<?php //var_dump($ASSETS); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,10 +18,6 @@
 	</head>
 	<body>
 		<div id="app"></div>
-        <!--
-            webpack-manifest-plugin issue with key name
-            https://github.com/shellscape/webpack-manifest-plugin/issues/238
-        -->
         <img src="<?php echo $ASSETS["src/home/assets/images/panda.png"]; ?>" alt="Panda" />
         <?php include $ASSETS["sprites/home.svg"]; ?>
 	</body>
