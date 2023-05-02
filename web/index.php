@@ -18,7 +18,7 @@
 	</head>
 	<body>
 		<div id="app"></div>
-        <img src="<?php echo $ASSETS["src/home/assets/images/panda.png"]; ?>" alt="Panda" />
+        <img src="<?php echo $ASSETS["images/panda.png"]; ?>" alt="Panda" />
         <?php include $ASSETS["sprites/home.svg"]; ?>
 	</body>
 </html>
