@@ -3,5 +3,5 @@ body {
 }
 
 #app {
-	max-width: var(----containerMaxWidth);
+	max-width: var(--container-max-width);
 }

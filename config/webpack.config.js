@@ -1,4 +1,4 @@
-const path = require('path')
+const { resolve } = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
 
 	return {
 		entry: {
-			home: './src/home/config.js'
+			home: resolve(__dirname, '../src/home/config.js')
 		},
 		watch: !isProduction,
 		watchOptions: {
@@ -25,7 +25,7 @@ module.exports = (env, argv) => {
 		},
 		devtool: isProduction ? false : 'source-map',
 		output: {
-			path: path.resolve(__dirname, './web/dist'),
+			path: resolve(__dirname, '../web/dist'),
 			publicPath: 'dist/',
 			filename: `scripts/[name]${suffixHash}.js`,
 			chunkFilename: `scripts/[name]${suffixHash}.js`
@@ -34,16 +34,19 @@ module.exports = (env, argv) => {
 			rules: [
 				{
 					test: /\.js$/,
-					include: path.resolve(__dirname, './src'),
+					include: resolve(__dirname, '../src'),
 					use: [
 						{
-							loader: 'babel-loader'
+							loader: 'babel-loader',
+							options: {
+								configFile: resolve(__dirname, './babel.config.js')
+							}
 						}
 					]
 				},
 				{
 					test: /\.css$/,
-					include: [path.resolve(__dirname, './src')],
+					include: [resolve(__dirname, '../src')],
 					use: [
 						MiniCssExtractPlugin.loader,
 						{
@@ -53,7 +56,7 @@ module.exports = (env, argv) => {
 							loader: 'postcss-loader',
 							options: {
 								postcssOptions: {
-									config: path.resolve(__dirname, 'postcss.config.js')
+									config: resolve(__dirname, './postcss.config.js')
 								}
 							}
 						}
@@ -61,7 +64,7 @@ module.exports = (env, argv) => {
 				},
 				{
 					test: /\.(jpe?g|png|gif)$/i,
-					include: path.resolve(__dirname, './src/'),
+					include: resolve(__dirname, '../src/'),
 					type: 'asset/resource',
 					generator: {
 						filename: `images/[name]${suffixHash}[ext]`
@@ -71,7 +74,10 @@ module.exports = (env, argv) => {
 					test: /\.svg$/,
 					use: [
 						{
-							loader: SvgChunkWebpackPlugin.loader
+							loader: SvgChunkWebpackPlugin.loader,
+							options: {
+								configFile: resolve(__dirname, './svgo.config.js')
+							}
 						}
 					]
 				}
@@ -79,8 +85,9 @@ module.exports = (env, argv) => {
 		},
 		resolve: {
 			extensions: ['.js', '.css'],
+			modules: [resolve(__dirname, '../node_modules')],
 			alias: {
-				shared: path.resolve(__dirname, './src/shared')
+				shared: resolve(__dirname, '../src/shared')
 			}
 		},
 		plugins: [
@@ -102,18 +109,6 @@ module.exports = (env, argv) => {
 						'aria-hidden': true,
 						style: 'position: absolute; width: 0; height: 0; overflow: hidden;'
 					}
-				},
-				svgoConfig: {
-					plugins: [
-						{
-							inlineStyles: {
-								onlyMatchedOnce: false
-							}
-						},
-						{
-							removeViewBox: false
-						}
-					]
 				}
 			})
 		],

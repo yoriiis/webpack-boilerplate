@@ -1,44 +1,29 @@
 <!--
-  For Work In Progress Pull Requests, please use the Draft PR feature,
-  see https://github.blog/2019-02-14-introducing-draft-pull-requests/ for further details.
-
-  For a timely review/response, please avoid force-pushing additional
-  commits if your PR already received reviews or comments.
-
-  Before submitting a Pull Request, please ensure you've done the following:
-  - Provided tests for your changes
-  - Used descriptive commit messages
-  - Updated any relevant documentation and added any necessary screenshots
+  Please place an x (without) in all [ ] that apply
 -->
 
-## What type of PR is this? (check all applicable)
+This PR contains a:
 
-- [ ] Refactor
-- [ ] Feature
-- [ ] Bug Fix
-- [ ] Optimization
-- [ ] Documentation Update
+- [ ] **bugfix**
+- [ ] new **feature**
+- [ ] **code refactor**
+- [ ] **test update** <!-- if bug or feature is checked, this should be too -->
+- [ ] **typo fix**
+- [ ] **metadata update**
 
-## Description
+### Motivation / Use-Case
 
-Please describe the change as necessary.
-If it's a feature or enhancement please be as detailed as possible.
-If it's a bug fix, please link the issue that it fixes or describe the bug in as much detail.
+<!--
+  Please explain the motivation or use-case for your change.
+  What existing problem does the PR solve?
+  If this PR addresses an issue, please link to the issue.
+-->
 
-## Related Tickets & Documents
+### Breaking Changes
 
-## Mobile & Desktop Screenshots/Recordings (if there are UI changes)
+<!--
+  If this PR introduces a breaking change, please describe the impact and a
+  migration path for existing applications.
+-->
 
-## Added tests?
-
-- [ ] Yes
-- [ ] No, because they aren't needed
-- [ ] No, because I need help
-
-## Added to documentation?
-
-- [ ] VuePress docs
-- [ ] Readme
-- [ ] No documentation needed
-
-## [optional] Are there any post deployment tasks we need to perform?
+### Additional Info
