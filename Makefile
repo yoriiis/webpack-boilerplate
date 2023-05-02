@@ -1,2 +1,2 @@
 start:
-	cd web/ && php -S localhost:8000
+	cd web/ && php --server localhost:8000
