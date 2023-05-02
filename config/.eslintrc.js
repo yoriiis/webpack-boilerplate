@@ -1,5 +1,5 @@
 module.exports = {
-	parser: 'babel-eslint',
+	parser: '@babel/eslint-parser',
 	parserOptions: {
 		ecmaVersion: 6,
 		ecmaFeatures: {
@@ -7,6 +7,7 @@ module.exports = {
 			experimentalObjectRestSpread: true,
 			jsx: true
 		},
+		babelOptions: { configFile: './config/babel.config.js' },
 		sourceType: 'module'
 	},
 
@@ -17,8 +18,6 @@ module.exports = {
 	},
 
 	extends: ['standard', 'plugin:react/recommended'],
-
-	plugins: ['prettier'],
 
 	rules: {
 		indent: ['error', 'tab', { ignoredNodes: ['TemplateLiteral *'] }],
