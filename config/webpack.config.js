@@ -43,7 +43,7 @@ export default function webpackConfig(env, argv) {
 						{
 							loader: 'babel-loader',
 							options: {
-								configFile: resolve(__dirname, './babel.config.js')
+								configFile: resolve(__dirname, './babel.config.cjs')
 							}
 						}
 					]
