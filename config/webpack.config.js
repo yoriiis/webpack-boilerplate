@@ -1,13 +1,17 @@
-const { resolve } = require('path')
-const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const ChunksWebpackPlugin = require('chunks-webpack-plugin')
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-const SvgChunkWebpackPlugin = require('svg-chunk-webpack-plugin')
+import path, { resolve } from 'path'
+import { fileURLToPath } from 'url'
+import webpack from 'webpack'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import ChunksWebpackPlugin from 'chunks-webpack-plugin'
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
+import SvgChunkWebpackPlugin from 'svg-chunk-webpack-plugin'
 
-module.exports = (env, argv) => {
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+export default function webpackConfig(env, argv) {
 	const isProduction = argv.mode === 'production'
 	const suffixHash = isProduction ? '.[contenthash]' : ''
 	const splitChunks = {
@@ -56,7 +60,7 @@ module.exports = (env, argv) => {
 							loader: 'postcss-loader',
 							options: {
 								postcssOptions: {
-									config: resolve(__dirname, './postcss.config.js')
+									config: resolve(__dirname, './postcss.config.cjs')
 								}
 							}
 						}
@@ -87,7 +91,8 @@ module.exports = (env, argv) => {
 			extensions: ['.js', '.css'],
 			modules: [resolve(__dirname, '../node_modules')],
 			alias: {
-				shared: resolve(__dirname, '../src/shared')
+				shared: resolve(__dirname, '../src/shared'),
+				'jsx-dom/jsx-runtime': 'jsx-dom/jsx-runtime.js'
 			}
 		},
 		plugins: [
@@ -100,7 +105,7 @@ module.exports = (env, argv) => {
 			new webpack.optimize.ModuleConcatenationPlugin(),
 			new ChunksWebpackPlugin({
 				filename: 'templates/[name]-[type].html',
-				templateScript: '<script defer src="{{chunk}}"></script>'
+				templateScript: (chunk) => `<script defer src="${chunk}"></script>`
 			}),
 			new SvgChunkWebpackPlugin({
 				filename: `sprites/[name]${suffixHash}.svg`,

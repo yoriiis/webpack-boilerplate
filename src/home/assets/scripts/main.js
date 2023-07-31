@@ -1,4 +1,4 @@
-import Home from './home'
+import Home from './home.js'
 
 const home = new Home()
 home.init()
