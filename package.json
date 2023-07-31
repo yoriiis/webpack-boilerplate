@@ -16,7 +16,7 @@
 		"test": "npm run test:unit",
 		"test:unit": "jest --config config/jest.config.js"
 	},
-	"prettier": "./config/prettier.config.js",
+	"prettier": "./config/prettier.config.cjs",
 	"devDependencies": {
 		"@babel/core": "^7.21.8",
 		"@babel/plugin-proposal-class-properties": "^7.18.6",
