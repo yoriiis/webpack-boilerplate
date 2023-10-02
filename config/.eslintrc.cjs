@@ -7,7 +7,7 @@ module.exports = {
 			experimentalObjectRestSpread: true,
 			jsx: true
 		},
-		babelOptions: { configFile: './config/babel.config.js' }
+		babelOptions: { configFile: './config/babel.config.cjs' }
 	},
 
 	env: {

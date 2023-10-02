@@ -7,7 +7,7 @@ module.exports = function (api) {
 			'@babel/preset-react',
 			{
 				runtime: 'automatic',
-				importSource: 'jsx-dom-cjs'
+				importSource: 'jsx-dom'
 			}
 		]
 	]
