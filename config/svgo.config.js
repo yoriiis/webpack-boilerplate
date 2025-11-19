@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 
 export default {
 	multipass: true,
@@ -10,7 +10,6 @@ export default {
 					inlineStyles: {
 						onlyMatchedOnce: false
 					},
-					removeViewBox: false,
 					cleanupIDs: {
 						prefix: {
 							/**
