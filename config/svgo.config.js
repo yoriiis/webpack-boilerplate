@@ -10,7 +10,7 @@ export default {
 					inlineStyles: {
 						onlyMatchedOnce: false
 					},
-					cleanupIDs: {
+					cleanupIds: {
 						prefix: {
 							/**
 							 * Generate random attribute ids on child tags of SVGs to avoid conflicts between SVGs
