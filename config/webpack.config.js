@@ -1,17 +1,17 @@
-import path, { resolve } from 'path'
-import { fileURLToPath } from 'url'
-import webpack from 'webpack'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import TerserPlugin from 'terser-webpack-plugin'
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import path, { resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import ChunksWebpackPlugin from 'chunks-webpack-plugin'
-import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import SvgChunkWebpackPlugin from 'svg-chunk-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+import webpack from 'webpack'
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-export default function webpackConfig(env, argv) {
+export default function webpackConfig(_env, argv) {
 	const isProduction = argv.mode === 'production'
 	const suffixHash = isProduction ? '.[contenthash]' : ''
 	const splitChunks = {
